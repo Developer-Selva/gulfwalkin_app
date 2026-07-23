@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "351112954399",
+    "project_id": "gulfwalkin-1c13f",
+    "storage_bucket": "gulfwalkin-1c13f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351112954399:android:fe55b35caf4ed57b294b2a",
+        "android_client_info": {
+          "package_name": "com.gulfwalkin.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351112954399-n8uki3rla2tdvb00im41u5atjtvg2gor.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gulfwalkin.app",
+            "certificate_hash": "293add4903a10dedc36e37a2d10c8d790ee59c36"
+          }
+        },
+        {
+          "client_id": "351112954399-hdgeim64b52o47eh8182hkqcimr8pfk3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnB0sohIDGui1iVP30DFl5T_sDoyjX28E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351112954399-hdgeim64b52o47eh8182hkqcimr8pfk3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
