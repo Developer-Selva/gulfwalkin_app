@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-const _kTokenKey = 'gw_auth_token';
-const _kRoleKey  = 'gw_auth_role';
+const _kTokenKey              = 'gw_auth_token';
+const _kRoleKey               = 'gw_auth_role';
+const _kFirstLoginKey         = 'gw_first_login_at';
+const _kFeedbackPromptShown   = 'gw_feedback_prompt_shown';
 
 final tokenStorageProvider = Provider<TokenStorage>((ref) => TokenStorage());
 
@@ -44,6 +46,39 @@ class TokenStorage {
         _box.delete(_kTokenKey),
         _box.delete(_kRoleKey),
       ]);
+    } catch (_) {}
+  }
+
+  /// Saves the current timestamp as the first-login date.
+  /// No-op if a value is already stored (preserves the original first-login).
+  Future<void> saveFirstLoginAt() async {
+    try {
+      if (_box.get(_kFirstLoginKey) == null) {
+        await _box.put(_kFirstLoginKey, DateTime.now().toIso8601String());
+      }
+    } catch (_) {}
+  }
+
+  DateTime? getFirstLoginAt() {
+    try {
+      final raw = _box.get(_kFirstLoginKey) as String?;
+      return raw != null ? DateTime.parse(raw) : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  bool isFeedbackPromptShown() {
+    try {
+      return _box.get(_kFeedbackPromptShown) as bool? ?? false;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<void> markFeedbackPromptShown() async {
+    try {
+      await _box.put(_kFeedbackPromptShown, true);
     } catch (_) {}
   }
 }

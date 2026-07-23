@@ -94,7 +94,7 @@ class SettingsScreen extends ConsumerWidget {
                   isScrollControlled: true,
                   useRootNavigator: true,
                   backgroundColor: Colors.transparent,
-                  builder: (_) => const _AppFeedbackSheet(),
+                  builder: (_) => const AppFeedbackSheet(),
                 ),
               ),
               _SettingsTile(
@@ -622,14 +622,14 @@ class _SettingsTile extends StatelessWidget {
 
 // ─── App Feedback sheet ───────────────────────────────────────────────────────
 
-class _AppFeedbackSheet extends ConsumerStatefulWidget {
-  const _AppFeedbackSheet();
+class AppFeedbackSheet extends ConsumerStatefulWidget {
+  const AppFeedbackSheet({super.key});
 
   @override
-  ConsumerState<_AppFeedbackSheet> createState() => _AppFeedbackSheetState();
+  ConsumerState<AppFeedbackSheet> createState() => _AppFeedbackSheetState();
 }
 
-class _AppFeedbackSheetState extends ConsumerState<_AppFeedbackSheet> {
+class _AppFeedbackSheetState extends ConsumerState<AppFeedbackSheet> {
   int _rating = 0;
   final _msgCtrl = TextEditingController();
   bool _loading = false;
