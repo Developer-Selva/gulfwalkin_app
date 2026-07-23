@@ -1,17 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/auth/token_storage.dart';
+import '../../features/settings/settings_screen.dart';
 import '../theme/app_colors.dart';
 
-class MainShell extends StatelessWidget {
+class MainShell extends ConsumerStatefulWidget {
   final StatefulNavigationShell navigationShell;
   const MainShell({super.key, required this.navigationShell});
 
   @override
+  ConsumerState<MainShell> createState() => _MainShellState();
+}
+
+class _MainShellState extends ConsumerState<MainShell> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybShowFeedbackPrompt());
+  }
+
+  Future<void> _maybShowFeedbackPrompt() async {
+    final storage = ref.read(tokenStorageProvider);
+
+    if (storage.isFeedbackPromptShown()) return;
+
+    final firstLogin = storage.getFirstLoginAt();
+    if (firstLogin == null) return;
+
+    final daysSince = DateTime.now().difference(firstLogin).inDays;
+    if (daysSince < 7) return;
+
+    await storage.markFeedbackPromptShown();
+
+    // Wait 3 seconds after home loads so it doesn't feel abrupt
+    await Future.delayed(const Duration(seconds: 3));
+
+    if (!mounted) return;
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useRootNavigator: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => const AppFeedbackSheet(),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: navigationShell,
+      body: widget.navigationShell,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
+        selectedIndex: widget.navigationShell.currentIndex,
         onDestinationSelected: _onTap,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         indicatorColor: AppColors.primary.withValues(alpha: 0.12),
@@ -47,10 +88,9 @@ class MainShell extends StatelessWidget {
   }
 
   void _onTap(int index) {
-    navigationShell.goBranch(
+    widget.navigationShell.goBranch(
       index,
-      // Tapping the active tab again resets it to its root route
-      initialLocation: index == navigationShell.currentIndex,
+      initialLocation: index == widget.navigationShell.currentIndex,
     );
   }
 }

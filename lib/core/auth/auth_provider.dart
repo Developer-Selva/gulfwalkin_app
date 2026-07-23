@@ -36,7 +36,9 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
   }
 
   Future<void> saveSession(String token, String role) async {
-    await ref.read(tokenStorageProvider).saveToken(token, role);
+    final storage = ref.read(tokenStorageProvider);
+    await storage.saveToken(token, role);
+    await storage.saveFirstLoginAt(); // no-op if already set
     final r = role == 'employer' ? AuthRole.employer : AuthRole.employee;
     state = AsyncData(AuthState(token: token, role: r));
     // Register FCM token in the background — token is now in storage so the
