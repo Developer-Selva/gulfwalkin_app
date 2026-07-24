@@ -454,14 +454,15 @@ class _ReportJobSheetState extends ConsumerState<_ReportJobSheet> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     return Container(
       margin: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-      padding: EdgeInsets.fromLTRB(20, 20, 20, 20 + bottom),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(20, 20, 20, 20 + bottom),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
             child: Container(
@@ -550,6 +551,7 @@ class _ReportJobSheetState extends ConsumerState<_ReportJobSheet> {
             ),
           ),
         ],
+        ),
       ),
     );
   }
