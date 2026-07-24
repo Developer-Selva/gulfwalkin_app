@@ -6,6 +6,7 @@ import '../../core/api/api_client.dart';
 import '../../core/api/error_handler.dart';
 import '../../core/auth/auth_provider.dart';
 import '../../core/auth/current_user_provider.dart';
+import '../../core/locale/locale_provider.dart';
 import '../../shared/theme/app_colors.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -66,6 +67,28 @@ class SettingsScreen extends ConsumerWidget {
                   useRootNavigator: true,
                   backgroundColor: Colors.transparent,
                   builder: (_) => const _ChangePasswordSheet(),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          // ── Preferences ──────────────────────────────────────────────────
+          _SectionGroup(
+            label: 'Preferences',
+            tiles: [
+              _SettingsTile(
+                icon: Icons.translate_rounded,
+                iconColor: const Color(0xFF0288D1),
+                title: 'Language',
+                subtitle: _currentLanguageLabel(ref),
+                onTap: () => showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  useRootNavigator: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (_) => const _LanguagePickerSheet(),
                 ),
               ),
             ],
@@ -172,6 +195,11 @@ class SettingsScreen extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  String _currentLanguageLabel(WidgetRef ref) {
+    final code = ref.watch(localeProvider).languageCode;
+    return localeDisplayNames[code] ?? 'English';
   }
 
   Future<void> _confirmDeleteAccount(BuildContext context) async {
@@ -801,6 +829,116 @@ class _AppFeedbackSheetState extends ConsumerState<AppFeedbackSheet> {
           ),
         ),
       ],
+    );
+  }
+}
+
+// ─── Language picker sheet ────────────────────────────────────────────────────
+
+class _LanguagePickerSheet extends ConsumerWidget {
+  const _LanguagePickerSheet();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentCode = ref.watch(localeProvider).languageCode;
+
+    return Container(
+      padding: EdgeInsets.fromLTRB(
+          20, 0, 20, 20 + MediaQuery.paddingOf(context).bottom),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              width: 36,
+              height: 4,
+              decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2)),
+            ),
+          ),
+          const Text('Choose Language',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+          const SizedBox(height: 16),
+          for (final locale in supportedLocales) ...[
+            _LangOption(
+              locale: locale,
+              isSelected: locale.languageCode == currentCode,
+              onTap: () async {
+                await ref
+                    .read(localeProvider.notifier)
+                    .setLocale(locale);
+                if (context.mounted) Navigator.pop(context);
+              },
+            ),
+            if (locale != supportedLocales.last)
+              const Divider(height: 1, indent: 52),
+          ],
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
+
+class _LangOption extends StatelessWidget {
+  final Locale locale;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _LangOption({
+    required this.locale,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  static const _flags = {
+    'en': '🇬🇧',
+    'ta': '🇮🇳',
+    'hi': '🇮🇳',
+    'te': '🇮🇳',
+    'ml': '🇮🇳',
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final name = localeDisplayNames[locale.languageCode] ?? locale.languageCode;
+    final flag = _flags[locale.languageCode] ?? '🌐';
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 13),
+        child: Row(
+          children: [
+            Text(flag, style: const TextStyle(fontSize: 22)),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Text(
+                name,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight:
+                      isSelected ? FontWeight.w700 : FontWeight.w500,
+                  color: isSelected
+                      ? AppColors.primary
+                      : AppColors.textPrimary,
+                ),
+              ),
+            ),
+            if (isSelected)
+              const Icon(Icons.check_circle_rounded,
+                  color: AppColors.primary, size: 20),
+          ],
+        ),
+      ),
     );
   }
 }

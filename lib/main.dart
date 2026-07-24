@@ -2,15 +2,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'core/api/api_client.dart';
 import 'core/auth/auth_provider.dart';
+import 'core/locale/locale_provider.dart';
 import 'core/services/fcm_service.dart';
 import 'features/notifications/notifications_provider.dart';
 import 'router.dart';
 import 'shared/theme/app_colors.dart';
 import 'shared/theme/app_theme.dart';
+import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -139,6 +142,7 @@ class _GulfwalkinAppState extends ConsumerState<GulfwalkinApp> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
+    final locale = ref.watch(localeProvider);
 
     return MaterialApp.router(
       title: 'Gulfwalkin',
@@ -146,6 +150,14 @@ class _GulfwalkinAppState extends ConsumerState<GulfwalkinApp> {
       routerConfig: router,
       scaffoldMessengerKey: _scaffoldKey,
       debugShowCheckedModeBanner: false,
+      locale: locale,
+      localizationsDelegates: const [
+        AppL10n.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: supportedLocales,
     );
   }
 }

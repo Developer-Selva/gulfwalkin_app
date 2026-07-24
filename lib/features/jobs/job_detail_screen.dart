@@ -7,6 +7,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/api/api_client.dart';
 import '../../core/api/error_handler.dart';
+import '../../core/locale/locale_provider.dart';
 import '../../core/models/job.dart';
 import '../../shared/theme/app_colors.dart';
 import '../../shared/widgets/error_state.dart';
@@ -161,7 +162,7 @@ class _JobDetailScreenState extends ConsumerState<JobDetailScreen> {
 
 // ─── Detail body ──────────────────────────────────────────────────────────────
 
-class _DetailBody extends StatelessWidget {
+class _DetailBody extends ConsumerWidget {
   final Job          job;
   final bool         bookmarkLoading;
   final VoidCallback onBookmark;
@@ -173,7 +174,8 @@ class _DetailBody extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeProvider).languageCode;
     return CustomScrollView(
       slivers: [
         _buildAppBar(context),
@@ -187,16 +189,16 @@ class _DetailBody extends StatelessWidget {
                   _ClosingSoonBanner(days: days),
                   const SizedBox(height: 12),
                 ],
-                _JobHeader(job: job),
+                _JobHeader(job: job, locale: locale),
                 const SizedBox(height: 16),
                 _QuickInfoRow(job: job),
                 const SizedBox(height: 20),
-                if (job.description != null) ...[
+                if (job.localizedDescription(locale) != null) ...[
                   _ContentSection(
                     title: 'Job Description',
                     icon: Icons.description_outlined,
                     child: Text(
-                      _htmlToText(job.description!),
+                      _htmlToText(job.localizedDescription(locale)!),
                       style: const TextStyle(
                         color: AppColors.textSecondary, fontSize: 14, height: 1.65),
                     ),
@@ -560,8 +562,9 @@ class _ReportJobSheetState extends ConsumerState<_ReportJobSheet> {
 // ─── Sub-widgets ──────────────────────────────────────────────────────────────
 
 class _JobHeader extends StatelessWidget {
-  final Job job;
-  const _JobHeader({required this.job});
+  final Job    job;
+  final String locale;
+  const _JobHeader({required this.job, this.locale = 'en'});
 
   @override
   Widget build(BuildContext context) {
@@ -574,7 +577,7 @@ class _JobHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(job.title,
+              Text(job.localizedTitle(locale),
                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800,
                       color: AppColors.textPrimary)),
               if (job.employer != null) ...[
