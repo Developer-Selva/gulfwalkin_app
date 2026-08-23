@@ -30,14 +30,29 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox('app_prefs');
 
-  await Firebase.initializeApp();
-  // Only register the background handler here — permission request is deferred
-  // to after the first frame to prevent a crash on Android 13+ OEM devices
-  // (OnePlus/OPPO ColorOS) where the process manager kills the app when the
-  // permission dialog is dismissed while Flutter's engine hasn't finished booting.
-  FcmService.registerBackgroundHandler();
+  final firebaseReady = await _initializeFirebase();
+  FcmService.setEnabled(firebaseReady);
+  if (firebaseReady) {
+    // Only register the background handler here — permission request is deferred
+    // to after the first frame to prevent a crash on Android 13+ OEM devices
+    // (OnePlus/OPPO ColorOS) where the process manager kills the app when the
+    // permission dialog is dismissed while Flutter's engine hasn't finished booting.
+    FcmService.registerBackgroundHandler();
+  } else {
+    debugPrint('Firebase is not configured on this device, so notification features are disabled for now.');
+  }
 
   runApp(const ProviderScope(child: GulfwalkinApp()));
+}
+
+Future<bool> _initializeFirebase() async {
+  try {
+    await Firebase.initializeApp();
+    return true;
+  } catch (error) {
+    debugPrint('Skipping Firebase initialization: $error');
+    return false;
+  }
 }
 
 class GulfwalkinApp extends ConsumerStatefulWidget {

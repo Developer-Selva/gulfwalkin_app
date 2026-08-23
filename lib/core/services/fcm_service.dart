@@ -1,8 +1,9 @@
-import 'dart:io';
+import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // The channel declared in AndroidManifest.xml must be created before FCM can
@@ -20,7 +21,13 @@ Future<void> _onBackgroundMessage(RemoteMessage message) async {
 }
 
 class FcmService {
-  static final _messaging = FirebaseMessaging.instance;
+  static bool _enabled = false;
+
+  static void setEnabled(bool enabled) {
+    _enabled = enabled;
+  }
+
+  static FirebaseMessaging get _messaging => FirebaseMessaging.instance;
 
   // Stores the notification that opened the app from a terminated state.
   // Consumed once by GulfwalkinApp on startup.
@@ -34,6 +41,7 @@ class FcmService {
   /// Call from main() — safe to call before runApp().
   /// Only registers the background handler; does NOT request permission.
   static void registerBackgroundHandler() {
+    if (!_enabled) return;
     FirebaseMessaging.onBackgroundMessage(_onBackgroundMessage);
   }
 
@@ -43,12 +51,14 @@ class FcmService {
   /// grants the permission dialog — the process is suspended, then killed and
   /// restarted by the OEM process manager before Flutter finishes booting.
   static Future<void> init() async {
+    if (!_enabled) return;
+
     // Android 8+ requires the notification channel to exist before FCM can
     // deliver background notifications. If the channel declared in
     // AndroidManifest.xml doesn't exist at the OS level, pushes are silently
     // dropped. Create it here, before requesting permission, so the channel
     // is ready the first time Firebase ever delivers a message.
-    if (Platform.isAndroid) {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
       await FlutterLocalNotificationsPlugin()
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()
@@ -83,6 +93,8 @@ class FcmService {
   /// Call after the user logs in (token is already saved to storage so Dio
   /// will attach the correct Authorization header automatically).
   static Future<void> registerToken(Dio dio) async {
+    if (!_enabled) return;
+
     try {
       final token = await _messaging.getToken();
       if (token == null) return;
@@ -105,9 +117,9 @@ class FcmService {
 
   /// Stream of messages received while the app is in the foreground.
   static Stream<RemoteMessage> get onForegroundMessage =>
-      FirebaseMessaging.onMessage;
+      _enabled ? FirebaseMessaging.onMessage : const Stream.empty();
 
   /// Stream fired when the user taps a notification while the app is backgrounded.
   static Stream<RemoteMessage> get onNotificationTap =>
-      FirebaseMessaging.onMessageOpenedApp;
+      _enabled ? FirebaseMessaging.onMessageOpenedApp : const Stream.empty();
 }
