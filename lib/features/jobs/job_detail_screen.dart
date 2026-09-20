@@ -9,6 +9,7 @@ import '../../core/api/api_client.dart';
 import '../../core/api/error_handler.dart';
 import '../../core/locale/locale_provider.dart';
 import '../../core/models/job.dart';
+import '../../l10n/app_localizations.dart';
 import '../../shared/theme/app_colors.dart';
 import '../../shared/widgets/error_state.dart';
 import '../../shared/widgets/loading_skeleton.dart';
@@ -51,7 +52,8 @@ String _htmlToText(String html) {
 
 class JobDetailScreen extends ConsumerStatefulWidget {
   final int jobId;
-  const JobDetailScreen({super.key, required this.jobId});
+  final bool isEmployerView;
+  const JobDetailScreen({super.key, required this.jobId, this.isEmployerView = false});
 
   @override
   ConsumerState<JobDetailScreen> createState() => _JobDetailScreenState();
@@ -134,13 +136,15 @@ class _JobDetailScreenState extends ConsumerState<JobDetailScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      bottomNavigationBar: async.whenOrNull(
-        data: (job) => _ApplyBar(
-          job:     job.copyWith(hasApplied: _hasAppliedOverride ?? job.hasApplied),
-          loading: _applyLoading,
-          onApply: () => _apply(job),
-        ),
-      ),
+      bottomNavigationBar: widget.isEmployerView
+          ? null
+          : async.whenOrNull(
+              data: (job) => _ApplyBar(
+                job:     job.copyWith(hasApplied: _hasAppliedOverride ?? job.hasApplied),
+                loading: _applyLoading,
+                onApply: () => _apply(job),
+              ),
+            ),
       body: async.when(
         loading: () => const JobListSkeleton(),
         error: (e, _) => Scaffold(
@@ -195,7 +199,7 @@ class _DetailBody extends ConsumerWidget {
                 const SizedBox(height: 20),
                 if (job.localizedDescription(locale) != null) ...[
                   _ContentSection(
-                    title: 'Job Description',
+                    title: AppL10n.of(context).jobDescription,
                     icon: Icons.description_outlined,
                     child: Text(
                       _htmlToText(job.localizedDescription(locale)!),
@@ -207,7 +211,7 @@ class _DetailBody extends ConsumerWidget {
                 ],
                 if (job.requirements != null) ...[
                   _ContentSection(
-                    title: 'Requirements',
+                    title: AppL10n.of(context).requirements,
                     icon: Icons.checklist_outlined,
                     child: Text(
                       _htmlToText(job.requirements!),
@@ -219,7 +223,7 @@ class _DetailBody extends ConsumerWidget {
                 ],
                 if (job.positions != null && job.positions!.isNotEmpty) ...[
                   _ContentSection(
-                    title: 'Open Positions',
+                    title: AppL10n.of(context).positions,
                     icon: Icons.work_outline,
                     child: Column(
                       children: job.positions!
@@ -231,7 +235,7 @@ class _DetailBody extends ConsumerWidget {
                 ],
                 if (job.interviewInfo != null) ...[
                   _ContentSection(
-                    title: 'Interview Info',
+                    title: AppL10n.of(context).interviewInfo,
                     icon: Icons.info_outline,
                     child: Text(
                       _htmlToText(job.interviewInfo!),
@@ -295,13 +299,13 @@ class _DetailBody extends ConsumerWidget {
             if (value == 'report') _showReportSheet(context, job);
           },
           itemBuilder: (_) => [
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 'report',
               child: Row(
                 children: [
-                  Icon(Icons.flag_outlined, size: 18, color: Colors.red),
-                  SizedBox(width: 10),
-                  Text('Report Job'),
+                  const Icon(Icons.flag_outlined, size: 18, color: Colors.red),
+                  const SizedBox(width: 10),
+                  Text(AppL10n.of(context).reportJob),
                 ],
               ),
             ),
@@ -656,7 +660,7 @@ class _QuickInfoRow extends StatelessWidget {
         children: [
           _InfoTile(
             icon: Icons.location_on_outlined,
-            label: 'Location',
+            label: AppL10n.of(context).location,
             value: '${job.location}, ${job.country}',
             color: AppColors.primary,
           ),
@@ -664,7 +668,7 @@ class _QuickInfoRow extends StatelessWidget {
             const Divider(height: 20),
             _InfoTile(
               icon: Icons.payments_outlined,
-              label: 'Salary',
+              label: AppL10n.of(context).salary,
               value: job.salaryRange!,
               color: AppColors.secondary,
             ),
@@ -672,7 +676,7 @@ class _QuickInfoRow extends StatelessWidget {
           const Divider(height: 20),
           _InfoTile(
             icon: Icons.people_outline,
-            label: 'Vacancies',
+            label: AppL10n.of(context).vacancies,
             value: '${job.vacancies} position${job.vacancies != 1 ? 's' : ''} open',
             color: AppColors.primary,
           ),
@@ -680,7 +684,7 @@ class _QuickInfoRow extends StatelessWidget {
             const Divider(height: 20),
             _InfoTile(
               icon: Icons.event_outlined,
-              label: 'Deadline',
+              label: AppL10n.of(context).deadline,
               value: job.deadline!,
               color: AppColors.error,
             ),
@@ -689,7 +693,7 @@ class _QuickInfoRow extends StatelessWidget {
             const Divider(height: 20),
             _InfoTile(
               icon: Icons.schedule_outlined,
-              label: 'Working Hours',
+              label: AppL10n.of(context).workingHours,
               value: job.workingHours!,
               color: AppColors.textSecondary,
             ),
@@ -1023,8 +1027,8 @@ class _ApplyBar extends StatelessWidget {
               ? OutlinedButton.icon(
                   onPressed: null,
                   icon: const Icon(Icons.check_circle_outline, color: AppColors.success),
-                  label: const Text('Already Applied',
-                      style: TextStyle(color: AppColors.success, fontWeight: FontWeight.w600)),
+                  label: Text(AppL10n.of(context).applied,
+                      style: const TextStyle(color: AppColors.success, fontWeight: FontWeight.w600)),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: AppColors.success),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
@@ -1050,8 +1054,8 @@ class _ApplyBar extends StatelessWidget {
                             child: CircularProgressIndicator(
                                 strokeWidth: 2.5, color: Colors.white),
                           )
-                        : const Text('Apply Now',
-                            style: TextStyle(
+                        : Text(AppL10n.of(context).applyNow,
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
                   ),
                 ),

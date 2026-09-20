@@ -12,6 +12,7 @@ import 'features/applications/applications_screen.dart';
 import 'features/cms/cms_page_screen.dart';
 import 'features/cms/contact_screen.dart';
 import 'features/employer/employer_jobs_screen.dart';
+import 'features/employer/employer_my_jobs_screen.dart';
 import 'features/home/home_screen.dart';
 import 'features/jobs/job_alerts_screen.dart';
 import 'features/jobs/job_detail_screen.dart';
@@ -110,8 +111,15 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         parentNavigatorKey: _rootKey,
         path: '/jobs/:id',
-        builder: (_, state) =>
-            JobDetailScreen(jobId: int.parse(state.pathParameters['id']!)),
+        builder: (_, state) => JobDetailScreen(
+          jobId: int.parse(state.pathParameters['id']!),
+          isEmployerView: state.uri.queryParameters['employer'] == '1',
+        ),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: '/employer/my-jobs',
+        builder: (_, __) => const EmployerMyJobsScreen(),
       ),
       GoRoute(
         parentNavigatorKey: _rootKey,

@@ -12,16 +12,16 @@ class AppL10nEn extends AppL10n {
   String get appName => 'Gulfwalkin';
 
   @override
+  String get navHome => 'Home';
+
+  @override
   String get navJobs => 'Jobs';
 
   @override
-  String get navSaved => 'Saved';
+  String get navApplied => 'Applied';
 
   @override
-  String get navAlerts => 'Alerts';
-
-  @override
-  String get navNotifications => 'Notifications';
+  String get navProfile => 'Profile';
 
   @override
   String get navSettings => 'Settings';
@@ -30,10 +30,16 @@ class AppL10nEn extends AppL10n {
   String get jobsTitle => 'Job Listings';
 
   @override
+  String get browseJobs => 'Browse Jobs';
+
+  @override
   String get searchJobs => 'Search jobs, companies...';
 
   @override
   String get filterBy => 'Filter';
+
+  @override
+  String get clearAll => 'Clear all';
 
   @override
   String get sortBy => 'Sort by';
@@ -52,6 +58,9 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get applied => 'Applied';
+
+  @override
+  String get applicationSubmitted => 'Application submitted!';
 
   @override
   String get bookmark => 'Bookmark';
@@ -75,6 +84,9 @@ class AppL10nEn extends AppL10n {
   String get requirements => 'Requirements';
 
   @override
+  String get interviewInfo => 'Interview Info';
+
+  @override
   String get positions => 'Positions';
 
   @override
@@ -94,9 +106,6 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get workingHours => 'Working Hours';
-
-  @override
-  String get interviewInfo => 'Interview Information';
 
   @override
   String get savedJobs => 'Saved Jobs';
@@ -141,6 +150,18 @@ class AppL10nEn extends AppL10n {
   String get applicationsSubtitle => 'Track your job applications';
 
   @override
+  String get jobAlerts => 'Job Alerts';
+
+  @override
+  String get jobAlertsSubtitle => 'Get notified when matching jobs are posted';
+
+  @override
+  String get changePassword => 'Change Password';
+
+  @override
+  String get changePasswordSubtitle => 'Update your account password';
+
+  @override
   String get preferences => 'Preferences';
 
   @override
@@ -150,13 +171,13 @@ class AppL10nEn extends AppL10n {
   String get languageSubtitle => 'Choose your preferred language';
 
   @override
-  String get notifications => 'Notifications';
-
-  @override
-  String get notificationsSubtitle => 'Manage push notification settings';
-
-  @override
   String get support => 'Support';
+
+  @override
+  String get contactUs => 'Contact Us';
+
+  @override
+  String get contactUsSubtitle => 'Get help or send us a message';
 
   @override
   String get rateApp => 'Rate & Feedback';
@@ -168,16 +189,28 @@ class AppL10nEn extends AppL10n {
   String get about => 'About Us';
 
   @override
+  String get legal => 'Legal';
+
+  @override
   String get terms => 'Terms & Conditions';
 
   @override
   String get privacy => 'Privacy Policy';
 
   @override
+  String get session => 'Session';
+
+  @override
   String get signOut => 'Sign Out';
 
   @override
   String get signOutConfirm => 'Sign out of your account?';
+
+  @override
+  String get deleteAccount => 'Delete Account';
+
+  @override
+  String get deleteAccountSubtitle => 'Permanently remove your data';
 
   @override
   String get cancel => 'Cancel';

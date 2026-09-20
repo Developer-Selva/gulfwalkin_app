@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/auth/auth_provider.dart';
 import '../../shared/theme/app_colors.dart';
@@ -130,10 +131,8 @@ class EmployerJobsScreen extends ConsumerWidget {
                   icon: Icons.work_outline_rounded,
                   label: 'My Job Listings',
                   color: const Color(0xFF7B1FA2),
-                  onTap: () => launchUrl(
-                    Uri.parse('https://gulfwalkin.com/jobs'),
-                    mode: LaunchMode.externalApplication,
-                  ),
+                  subtitle: 'View in app →',
+                  onTap: () => context.push('/employer/my-jobs'),
                 ),
               ),
               const SizedBox(width: 12),
@@ -192,12 +191,14 @@ class _QuickCard extends StatelessWidget {
   final String label;
   final Color color;
   final VoidCallback onTap;
+  final String subtitle;
 
   const _QuickCard({
     required this.icon,
     required this.label,
     required this.color,
     required this.onTap,
+    this.subtitle = 'Open in browser →',
   });
 
   @override
@@ -228,8 +229,8 @@ class _QuickCard extends StatelessWidget {
                 style: const TextStyle(
                     fontSize: 13, fontWeight: FontWeight.w600)),
             const SizedBox(height: 2),
-            const Text('Open in browser →',
-                style: TextStyle(fontSize: 11, color: AppColors.textHint)),
+            Text(subtitle,
+                style: const TextStyle(fontSize: 11, color: AppColors.textHint)),
           ],
         ),
       ),

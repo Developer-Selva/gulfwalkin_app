@@ -59,6 +59,7 @@ class Job {
   final bool isBookmarked;
   final bool hasApplied;
   final String createdAt;
+  final String? status;
   final JobEmployer? employer;
 
   const Job({
@@ -86,6 +87,7 @@ class Job {
     this.isBookmarked = false,
     this.hasApplied = false,
     required this.createdAt,
+    this.status,
     this.employer,
   });
 
@@ -139,6 +141,7 @@ class Job {
         isBookmarked:           j['is_bookmarked'] as bool? ?? false,
         hasApplied:             j['has_applied'] as bool? ?? false,
         createdAt:              j['created_at'] as String,
+        status:                 j['status'] as String?,
         employer:               j['employer'] != null ? JobEmployer.fromJson(j['employer'] as Map<String, dynamic>) : null,
       );
 
@@ -159,6 +162,7 @@ class Job {
         'is_bookmarked':        isBookmarked,
         'has_applied':          hasApplied,
         'created_at':           createdAt,
+        'status':               status,
         'employer':             employer == null ? null : {
           'id':           employer!.id,
           'company_name': employer!.companyName,
@@ -166,7 +170,7 @@ class Job {
         },
       };
 
-  Job copyWith({bool? isBookmarked, bool? hasApplied, List<JobPosition>? positions}) => Job(
+  Job copyWith({bool? isBookmarked, bool? hasApplied, List<JobPosition>? positions, String? status}) => Job(
         id:                      id,
         title:                   title,
         titleTranslations:       titleTranslations,
@@ -190,8 +194,9 @@ class Job {
         contactEmail:            contactEmail,
         isBookmarked:            isBookmarked ?? this.isBookmarked,
         hasApplied:              hasApplied   ?? this.hasApplied,
-        createdAt:     createdAt,
-        employer:      employer,
+        createdAt:               createdAt,
+        status:                  status ?? this.status,
+        employer:                employer,
       );
 }
 

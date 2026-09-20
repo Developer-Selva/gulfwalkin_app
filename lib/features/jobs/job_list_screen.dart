@@ -6,6 +6,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../core/api/api_client.dart';
 import '../../core/api/error_handler.dart';
 import '../../core/models/job.dart';
+import '../../l10n/app_localizations.dart';
 import '../../shared/theme/app_colors.dart';
 import '../../shared/widgets/empty_state.dart';
 import '../../shared/widgets/error_state.dart';
@@ -126,9 +127,9 @@ class _JobListScreenState extends ConsumerState<JobListScreen> {
       await ref.read(dioProvider).post('/jobs/${job.id}/apply');
       ref.read(jobListProvider.notifier).markApplied(job.id);
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Application submitted!'),
-          backgroundColor: Color(0xFF2E7D32),
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(AppL10n.of(context).applicationSubmitted),
+          backgroundColor: const Color(0xFF2E7D32),
           behavior: SnackBarBehavior.floating,
         ));
       }
@@ -153,14 +154,14 @@ class _JobListScreenState extends ConsumerState<JobListScreen> {
       appBar: AppBar(
         // Show back arrow only when this screen is pushed on top of something
         automaticallyImplyLeading: true,
-        title: const Text('Browse Jobs',
-            style: TextStyle(fontWeight: FontWeight.w700)),
+        title: Text(AppL10n.of(context).browseJobs,
+            style: const TextStyle(fontWeight: FontWeight.w700)),
         actions: [
           if (filter.hasActiveFilters)
             TextButton(
               onPressed: _clearAll,
-              child: const Text('Clear all',
-                  style: TextStyle(color: AppColors.primary, fontSize: 13)),
+              child: Text(AppL10n.of(context).clearAll,
+                  style: const TextStyle(color: AppColors.primary, fontSize: 13)),
             ),
           IconButton(
             icon: Badge(
@@ -184,7 +185,7 @@ class _JobListScreenState extends ConsumerState<JobListScreen> {
                   controller: _searchCtrl,
                   onChanged: _submitSearch,
                   decoration: InputDecoration(
-                    hintText: 'Search jobs, companies...',
+                    hintText: AppL10n.of(context).searchJobs,
                     prefixIcon: const Icon(Icons.search_rounded, size: 20),
                     suffixIcon: _searchCtrl.text.isNotEmpty
                         ? IconButton(

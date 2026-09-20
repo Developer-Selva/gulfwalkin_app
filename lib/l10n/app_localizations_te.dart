@@ -12,16 +12,16 @@ class AppL10nTe extends AppL10n {
   String get appName => 'Gulfwalkin';
 
   @override
+  String get navHome => 'హోమ్';
+
+  @override
   String get navJobs => 'ఉద్యోగాలు';
 
   @override
-  String get navSaved => 'సేవ్ చేయబడినవి';
+  String get navApplied => 'దరఖాస్తులు';
 
   @override
-  String get navAlerts => 'హెచ్చరికలు';
-
-  @override
-  String get navNotifications => 'నోటిఫికేషన్లు';
+  String get navProfile => 'ప్రొఫైల్';
 
   @override
   String get navSettings => 'సెట్టింగ్లు';
@@ -30,10 +30,16 @@ class AppL10nTe extends AppL10n {
   String get jobsTitle => 'ఉద్యోగ జాబితాలు';
 
   @override
+  String get browseJobs => 'ఉద్యోగాలు చూడండి';
+
+  @override
   String get searchJobs => 'ఉద్యోగాలు, కంపెనీలు వెతకండి...';
 
   @override
   String get filterBy => 'ఫిల్టర్';
+
+  @override
+  String get clearAll => 'అన్నీ తీసివేయండి';
 
   @override
   String get sortBy => 'క్రమీకరించు';
@@ -52,6 +58,9 @@ class AppL10nTe extends AppL10n {
 
   @override
   String get applied => 'దరఖాస్తు చేయబడింది';
+
+  @override
+  String get applicationSubmitted => 'దరఖాస్తు సమర్పించబడింది!';
 
   @override
   String get bookmark => 'బుక్‌మార్క్';
@@ -75,6 +84,9 @@ class AppL10nTe extends AppL10n {
   String get requirements => 'అవసరాలు';
 
   @override
+  String get interviewInfo => 'ఇంటర్వ్యూ సమాచారం';
+
+  @override
   String get positions => 'పదవులు';
 
   @override
@@ -94,9 +106,6 @@ class AppL10nTe extends AppL10n {
 
   @override
   String get workingHours => 'పని గంటలు';
-
-  @override
-  String get interviewInfo => 'ఇంటర్వ్యూ సమాచారం';
 
   @override
   String get savedJobs => 'సేవ్ చేయబడిన ఉద్యోగాలు';
@@ -142,6 +151,19 @@ class AppL10nTe extends AppL10n {
   String get applicationsSubtitle => 'మీ ఉద్యోగ దరఖాస్తులను ట్రాక్ చేయండి';
 
   @override
+  String get jobAlerts => 'ఉద్యోగ హెచ్చరికలు';
+
+  @override
+  String get jobAlertsSubtitle =>
+      'మీకు నచ్చిన ఉద్యోగాలు పోస్ట్ అయినప్పుడు నోటిఫికేషన్ పొందండి';
+
+  @override
+  String get changePassword => 'పాస్‌వర్డ్ మార్చండి';
+
+  @override
+  String get changePasswordSubtitle => 'మీ ఖాతా పాస్‌వర్డ్ నవీకరించండి';
+
+  @override
   String get preferences => 'ప్రాధాన్యతలు';
 
   @override
@@ -151,14 +173,13 @@ class AppL10nTe extends AppL10n {
   String get languageSubtitle => 'మీకు నచ్చిన భాషను ఎంచుకోండి';
 
   @override
-  String get notifications => 'నోటిఫికేషన్లు';
-
-  @override
-  String get notificationsSubtitle =>
-      'పుష్ నోటిఫికేషన్ సెట్టింగ్లను నిర్వహించండి';
-
-  @override
   String get support => 'మద్దతు';
+
+  @override
+  String get contactUs => 'మమ్మల్ని సంప్రదించండి';
+
+  @override
+  String get contactUsSubtitle => 'సహాయం పొందండి లేదా సందేశం పంపండి';
 
   @override
   String get rateApp => 'రేటింగ్ & అభిప్రాయం';
@@ -170,16 +191,28 @@ class AppL10nTe extends AppL10n {
   String get about => 'మా గురించి';
 
   @override
+  String get legal => 'చట్టపరమైనది';
+
+  @override
   String get terms => 'నిబంధనలు & షరతులు';
 
   @override
   String get privacy => 'గోప్యతా విధానం';
 
   @override
+  String get session => 'సెషన్';
+
+  @override
   String get signOut => 'సైన్ అవుట్';
 
   @override
   String get signOutConfirm => 'మీ ఖాతా నుండి సైన్ అవుట్ చేయాలనుకుంటున్నారా?';
+
+  @override
+  String get deleteAccount => 'ఖాతా తొలగించు';
+
+  @override
+  String get deleteAccountSubtitle => 'మీ డేటాను శాశ్వతంగా తొలగించండి';
 
   @override
   String get cancel => 'రద్దు';

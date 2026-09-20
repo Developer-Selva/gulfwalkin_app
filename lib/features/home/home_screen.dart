@@ -372,53 +372,168 @@ class _CategoriesRow extends StatelessWidget {
   final List<Category> categories;
   const _CategoriesRow({required this.categories});
 
-  static const _colors = [
+  // Fallback color palette when the API doesn't supply a hex color.
+  static const _fallbackColors = [
     Color(0xFF1565C0), Color(0xFF00897B), Color(0xFFF57C00),
     Color(0xFF7B1FA2), Color(0xFFC62828), Color(0xFF00838F),
   ];
 
+  static Color _colorFor(String? hex, int index) {
+    if (hex != null && hex.startsWith('#')) {
+      try {
+        return Color(int.parse('0xFF${hex.substring(1)}'));
+      } catch (_) {}
+    }
+    return _fallbackColors[index % _fallbackColors.length];
+  }
+
+  // Maps category names to specific Material icons.
+  static IconData _iconFor(String name) {
+    final n = name.toLowerCase();
+    if (n.contains('oil') || n.contains('gas') || n.contains('petro')) { return Icons.local_fire_department_rounded; }
+    if (n.contains('engineer') || n.contains('construct')) { return Icons.construction_rounded; }
+    if (n.contains('hvac') || n.contains('mep')) { return Icons.hvac_rounded; }
+    if (n.contains('information') || n.contains('tech') || n.contains('telecom')) { return Icons.computer_rounded; }
+    if (n.contains('medical') || n.contains('health')) { return Icons.local_hospital_rounded; }
+    if (n.contains('hospitality') || n.contains('hotel') || n.contains('tourism') || n.contains('travel')) { return Icons.hotel_rounded; }
+    if (n.contains('logistic') || n.contains('transport')) { return Icons.local_shipping_rounded; }
+    if (n.contains('bank') || n.contains('financial')) { return Icons.account_balance_rounded; }
+    if (n.contains('teach') || n.contains('education')) { return Icons.school_rounded; }
+    if (n.contains('defense') || n.contains('security')) { return Icons.security_rounded; }
+    if (n.contains('retail') || n.contains('hypermarket') || n.contains('showroom')) { return Icons.store_rounded; }
+    if (n.contains('production') || n.contains('manufacturing')) { return Icons.factory_rounded; }
+    if (n.contains('food') || n.contains('beverage')) { return Icons.restaurant_rounded; }
+    if (n.contains('textile') || n.contains('garment')) { return Icons.checkroom_rounded; }
+    if (n.contains('automobile') || n.contains('auto')) { return Icons.directions_car_rounded; }
+    if (n.contains('agriculture') || n.contains('plantation') || n.contains('farm')) { return Icons.grass_rounded; }
+    if (n.contains('mining')) { return Icons.landscape_rounded; }
+    if (n.contains('airport') || n.contains('airline')) { return Icons.flight_rounded; }
+    if (n.contains('facility')) { return Icons.apartment_rounded; }
+    if (n.contains('ship') || n.contains('marine')) { return Icons.directions_boat_rounded; }
+    if (n.contains('power') || n.contains('energy') || n.contains('sub-station')) { return Icons.bolt_rounded; }
+    if (n.contains('domestic')) { return Icons.home_rounded; }
+    return Icons.work_outline_rounded;
+  }
+
+  // Shortens long slash-separated names: "Oil & Gas / Petrochemicals" → "Oil & Gas"
+  static String _shortLabel(String name) {
+    final parts = name.split('/');
+    final first = parts.first.trim();
+    return first.length <= 14 ? first : '${first.substring(0, 13)}…';
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 90,
+      height: 104,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
         child: Row(
           children: [
-            for (int i = 0; i < categories.length; i++) GestureDetector(
-              onTap: () => context.go(
-                  '/jobs?category=${Uri.encodeComponent(categories[i].name)}'),
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 4),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                decoration: BoxDecoration(
-                  color: _colors[i % _colors.length].withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                      color: _colors[i % _colors.length]
-                          .withValues(alpha: 0.2)),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.work_outline,
-                        color: _colors[i % _colors.length], size: 22),
-                    const SizedBox(height: 6),
-                    Text(
-                      categories[i].name,
-                      style: TextStyle(
-                          fontSize: 11,
-                          color: _colors[i % _colors.length],
-                          fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
+            for (int i = 0; i < categories.length; i++)
+              _AnimatedCategoryCard(
+                category: categories[i],
+                color: _colorFor(categories[i].color, i),
+                icon: _iconFor(categories[i].name),
+                label: _shortLabel(categories[i].name),
+                onTap: () => context.go(
+                    '/jobs?category=${Uri.encodeComponent(categories[i].name)}'),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AnimatedCategoryCard extends StatefulWidget {
+  final Category category;
+  final Color color;
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _AnimatedCategoryCard({
+    required this.category,
+    required this.color,
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  State<_AnimatedCategoryCard> createState() => _AnimatedCategoryCardState();
+}
+
+class _AnimatedCategoryCardState extends State<_AnimatedCategoryCard> {
+  bool _pressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
+      onTap: widget.onTap,
+      child: AnimatedScale(
+        scale: _pressed ? 0.90 : 1.0,
+        duration: const Duration(milliseconds: 130),
+        curve: Curves.easeInOut,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 130),
+          curve: Curves.easeInOut,
+          margin: const EdgeInsets.only(right: 10),
+          width: 80,
+          decoration: BoxDecoration(
+            color: _pressed
+                ? widget.color.withValues(alpha: 0.18)
+                : widget.color.withValues(alpha: 0.09),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: widget.color.withValues(alpha: _pressed ? 0.45 : 0.22),
+              width: 1.2,
+            ),
+            boxShadow: _pressed
+                ? []
+                : [
+                    BoxShadow(
+                      color: widget.color.withValues(alpha: 0.12),
+                      blurRadius: 8,
+                      offset: const Offset(0, 3),
                     ),
                   ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: widget.color.withValues(alpha: 0.15),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(widget.icon, color: widget.color, size: 22),
+              ),
+              const SizedBox(height: 7),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                child: Text(
+                  widget.label,
+                  style: TextStyle(
+                    fontSize: 10.5,
+                    color: widget.color.withValues(alpha: 0.9),
+                    fontWeight: FontWeight.w700,
+                    height: 1.2,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

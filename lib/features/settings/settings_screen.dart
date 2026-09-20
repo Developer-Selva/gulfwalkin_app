@@ -7,6 +7,7 @@ import '../../core/api/error_handler.dart';
 import '../../core/auth/auth_provider.dart';
 import '../../core/auth/current_user_provider.dart';
 import '../../core/locale/locale_provider.dart';
+import '../../l10n/app_localizations.dart';
 import '../../shared/theme/app_colors.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -19,7 +20,7 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Settings', style: TextStyle(fontWeight: FontWeight.w700)),
+        title: Text(AppL10n.of(context).settings, style: const TextStyle(fontWeight: FontWeight.w700)),
       ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
@@ -40,27 +41,27 @@ class SettingsScreen extends ConsumerWidget {
 
           // ── Account ──────────────────────────────────────────────────────
           _SectionGroup(
-            label: 'Account',
+            label: AppL10n.of(context).account,
             tiles: [
               _SettingsTile(
                 icon: Icons.person_outline_rounded,
                 iconColor: AppColors.primary,
-                title: 'My Profile',
-                subtitle: 'Edit your personal and career info',
+                title: AppL10n.of(context).myProfile,
+                subtitle: AppL10n.of(context).editProfile,
                 onTap: () => context.go('/profile'),
               ),
               _SettingsTile(
                 icon: Icons.notifications_active_outlined,
                 iconColor: const Color(0xFFF57C00),
-                title: 'Job Alerts',
-                subtitle: 'Get notified when matching jobs are posted',
+                title: AppL10n.of(context).jobAlerts,
+                subtitle: AppL10n.of(context).jobAlertsSubtitle,
                 onTap: () => context.push('/job-alerts'),
               ),
               _SettingsTile(
                 icon: Icons.lock_outline_rounded,
                 iconColor: const Color(0xFF00897B),
-                title: 'Change Password',
-                subtitle: 'Update your account password',
+                title: AppL10n.of(context).changePassword,
+                subtitle: AppL10n.of(context).changePasswordSubtitle,
                 onTap: () => showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
@@ -76,12 +77,12 @@ class SettingsScreen extends ConsumerWidget {
 
           // ── Preferences ──────────────────────────────────────────────────
           _SectionGroup(
-            label: 'Preferences',
+            label: AppL10n.of(context).preferences,
             tiles: [
               _SettingsTile(
                 icon: Icons.translate_rounded,
                 iconColor: const Color(0xFF0288D1),
-                title: 'Language',
+                title: AppL10n.of(context).language,
                 subtitle: _currentLanguageLabel(ref),
                 onTap: () => showModalBottomSheet<void>(
                   context: context,
@@ -98,20 +99,20 @@ class SettingsScreen extends ConsumerWidget {
 
           // ── Support ──────────────────────────────────────────────────────
           _SectionGroup(
-            label: 'Support',
+            label: AppL10n.of(context).support,
             tiles: [
               _SettingsTile(
                 icon: Icons.mail_outline_rounded,
                 iconColor: AppColors.secondary,
-                title: 'Contact Us',
-                subtitle: 'Get help or send us a message',
+                title: AppL10n.of(context).contactUs,
+                subtitle: AppL10n.of(context).contactUsSubtitle,
                 onTap: () => context.push('/contact'),
               ),
               _SettingsTile(
                 icon: Icons.star_outline_rounded,
                 iconColor: const Color(0xFFF59E0B),
-                title: 'Rate & Feedback',
-                subtitle: 'Share your experience with us',
+                title: AppL10n.of(context).rateApp,
+                subtitle: AppL10n.of(context).rateAppSubtitle,
                 onTap: () => showModalBottomSheet<void>(
                   context: context,
                   isScrollControlled: true,
@@ -123,7 +124,7 @@ class SettingsScreen extends ConsumerWidget {
               _SettingsTile(
                 icon: Icons.info_outline_rounded,
                 iconColor: const Color(0xFF3B82F6),
-                title: 'About Us',
+                title: AppL10n.of(context).about,
                 subtitle: 'Learn more about Gulfwalkin',
                 onTap: () => context.push('/cms/about'),
               ),
@@ -134,18 +135,18 @@ class SettingsScreen extends ConsumerWidget {
 
           // ── Legal ────────────────────────────────────────────────────────
           _SectionGroup(
-            label: 'Legal',
+            label: AppL10n.of(context).legal,
             tiles: [
               _SettingsTile(
                 icon: Icons.description_outlined,
                 iconColor: AppColors.warning,
-                title: 'Terms & Conditions',
+                title: AppL10n.of(context).terms,
                 onTap: () => context.push('/cms/terms'),
               ),
               _SettingsTile(
                 icon: Icons.privacy_tip_outlined,
                 iconColor: const Color(0xFF7B1FA2),
-                title: 'Privacy Policy',
+                title: AppL10n.of(context).privacy,
                 onTap: () => context.push('/cms/privacy'),
               ),
             ],
@@ -155,21 +156,21 @@ class SettingsScreen extends ConsumerWidget {
 
           // ── Danger zone ──────────────────────────────────────────────────
           _SectionGroup(
-            label: 'Session',
+            label: AppL10n.of(context).session,
             tiles: [
               _SettingsTile(
                 icon: Icons.logout_rounded,
                 iconColor: AppColors.error,
-                title: 'Sign Out',
+                title: AppL10n.of(context).signOut,
                 titleColor: AppColors.error,
                 onTap: () => _confirmLogout(context, ref),
               ),
               _SettingsTile(
                 icon: Icons.delete_forever_outlined,
                 iconColor: AppColors.error,
-                title: 'Delete Account',
+                title: AppL10n.of(context).deleteAccount,
                 titleColor: AppColors.error,
-                subtitle: 'Permanently remove your data',
+                subtitle: AppL10n.of(context).deleteAccountSubtitle,
                 onTap: () => _confirmDeleteAccount(context),
               ),
             ],

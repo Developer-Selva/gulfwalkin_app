@@ -12,16 +12,16 @@ class AppL10nTa extends AppL10n {
   String get appName => 'Gulfwalkin';
 
   @override
+  String get navHome => 'வீடு';
+
+  @override
   String get navJobs => 'வேலைகள்';
 
   @override
-  String get navSaved => 'சேமிக்கப்பட்டவை';
+  String get navApplied => 'விண்ணப்பங்கள்';
 
   @override
-  String get navAlerts => 'விழிப்பூட்டல்கள்';
-
-  @override
-  String get navNotifications => 'அறிவிப்புகள்';
+  String get navProfile => 'சுயவிவரம்';
 
   @override
   String get navSettings => 'அமைப்புகள்';
@@ -30,10 +30,16 @@ class AppL10nTa extends AppL10n {
   String get jobsTitle => 'வேலை பட்டியல்கள்';
 
   @override
+  String get browseJobs => 'வேலைகளை உலாவுங்கள்';
+
+  @override
   String get searchJobs => 'வேலைகள், நிறுவனங்கள் தேடுங்கள்...';
 
   @override
   String get filterBy => 'வடிகட்டு';
+
+  @override
+  String get clearAll => 'அனைத்தையும் அழிக்கவும்';
 
   @override
   String get sortBy => 'வரிசைப்படுத்து';
@@ -52,6 +58,9 @@ class AppL10nTa extends AppL10n {
 
   @override
   String get applied => 'விண்ணப்பிக்கப்பட்டது';
+
+  @override
+  String get applicationSubmitted => 'விண்ணப்பம் சமர்ப்பிக்கப்பட்டது!';
 
   @override
   String get bookmark => 'புக்மார்க்';
@@ -75,6 +84,9 @@ class AppL10nTa extends AppL10n {
   String get requirements => 'தேவைகள்';
 
   @override
+  String get interviewInfo => 'நேர்காணல் தகவல்';
+
+  @override
   String get positions => 'பதவிகள்';
 
   @override
@@ -94,9 +106,6 @@ class AppL10nTa extends AppL10n {
 
   @override
   String get workingHours => 'வேலை நேரம்';
-
-  @override
-  String get interviewInfo => 'நேர்காணல் தகவல்';
 
   @override
   String get savedJobs => 'சேமிக்கப்பட்ட வேலைகள்';
@@ -142,6 +151,20 @@ class AppL10nTa extends AppL10n {
   String get applicationsSubtitle => 'உங்கள் வேலை விண்ணப்பங்களை கண்காணிக்கவும்';
 
   @override
+  String get jobAlerts => 'வேலை விழிப்பூட்டல்கள்';
+
+  @override
+  String get jobAlertsSubtitle =>
+      'பொருந்தும் வேலைகள் இடுகையிடப்படும்போது அறிவிக்கப்படுங்கள்';
+
+  @override
+  String get changePassword => 'கடவுச்சொல்லை மாற்று';
+
+  @override
+  String get changePasswordSubtitle =>
+      'உங்கள் கணக்கு கடவுச்சொல்லை புதுப்பிக்கவும்';
+
+  @override
   String get preferences => 'விருப்பங்கள்';
 
   @override
@@ -151,14 +174,13 @@ class AppL10nTa extends AppL10n {
   String get languageSubtitle => 'உங்கள் விருப்பமான மொழியை தேர்வு செய்யுங்கள்';
 
   @override
-  String get notifications => 'அறிவிப்புகள்';
-
-  @override
-  String get notificationsSubtitle =>
-      'புஷ் அறிவிப்பு அமைப்புகளை நிர்வகிக்கவும்';
-
-  @override
   String get support => 'ஆதரவு';
+
+  @override
+  String get contactUs => 'எங்களை தொடர்பு கொள்ளுங்கள்';
+
+  @override
+  String get contactUsSubtitle => 'உதவி பெறவும் அல்லது செய்தி அனுப்பவும்';
 
   @override
   String get rateApp => 'மதிப்பீடு & கருத்து';
@@ -170,10 +192,16 @@ class AppL10nTa extends AppL10n {
   String get about => 'எங்களை பற்றி';
 
   @override
+  String get legal => 'சட்டப்பூர்வம்';
+
+  @override
   String get terms => 'விதிமுறைகள் & நிபந்தனைகள்';
 
   @override
   String get privacy => 'தனியுரிமைக் கொள்கை';
+
+  @override
+  String get session => 'அமர்வு';
 
   @override
   String get signOut => 'வெளியேறு';
@@ -181,6 +209,12 @@ class AppL10nTa extends AppL10n {
   @override
   String get signOutConfirm =>
       'உங்கள் கணக்கிலிருந்து வெளியேற விரும்புகிறீர்களா?';
+
+  @override
+  String get deleteAccount => 'கணக்கை நீக்கு';
+
+  @override
+  String get deleteAccountSubtitle => 'உங்கள் தரவை நிரந்தரமாக அகற்றவும்';
 
   @override
   String get cancel => 'ரத்து';

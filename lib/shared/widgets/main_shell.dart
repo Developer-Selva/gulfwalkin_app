@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/auth/token_storage.dart';
 import '../../features/settings/settings_screen.dart';
+import '../../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 
 class MainShell extends ConsumerStatefulWidget {
@@ -56,31 +57,31 @@ class _MainShellState extends ConsumerState<MainShell> {
         onDestinationSelected: _onTap,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         indicatorColor: AppColors.primary.withValues(alpha: 0.12),
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon:         Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home_rounded, color: AppColors.primary),
-            label:        'Home',
+            icon:         const Icon(Icons.home_outlined),
+            selectedIcon: const Icon(Icons.home_rounded, color: AppColors.primary),
+            label:        AppL10n.of(context).navHome,
           ),
           NavigationDestination(
-            icon:         Icon(Icons.search_outlined),
-            selectedIcon: Icon(Icons.search_rounded, color: AppColors.primary),
-            label:        'Jobs',
+            icon:         const Icon(Icons.search_outlined),
+            selectedIcon: const Icon(Icons.search_rounded, color: AppColors.primary),
+            label:        AppL10n.of(context).navJobs,
           ),
           NavigationDestination(
-            icon:         Icon(Icons.assignment_outlined),
-            selectedIcon: Icon(Icons.assignment_rounded, color: AppColors.primary),
-            label:        'Applied',
+            icon:         const Icon(Icons.assignment_outlined),
+            selectedIcon: const Icon(Icons.assignment_rounded, color: AppColors.primary),
+            label:        AppL10n.of(context).navApplied,
           ),
           NavigationDestination(
-            icon:         Icon(Icons.person_outline_rounded),
-            selectedIcon: Icon(Icons.person_rounded, color: AppColors.primary),
-            label:        'Profile',
+            icon:         const Icon(Icons.person_outline_rounded),
+            selectedIcon: const Icon(Icons.person_rounded, color: AppColors.primary),
+            label:        AppL10n.of(context).navProfile,
           ),
           NavigationDestination(
-            icon:         Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings_rounded, color: AppColors.primary),
-            label:        'Settings',
+            icon:         const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings_rounded, color: AppColors.primary),
+            label:        AppL10n.of(context).navSettings,
           ),
         ],
       ),

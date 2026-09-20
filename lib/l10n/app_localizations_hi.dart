@@ -12,16 +12,16 @@ class AppL10nHi extends AppL10n {
   String get appName => 'Gulfwalkin';
 
   @override
+  String get navHome => 'होम';
+
+  @override
   String get navJobs => 'नौकरियां';
 
   @override
-  String get navSaved => 'सहेजे गए';
+  String get navApplied => 'आवेदन किए';
 
   @override
-  String get navAlerts => 'अलर्ट';
-
-  @override
-  String get navNotifications => 'सूचनाएं';
+  String get navProfile => 'प्रोफ़ाइल';
 
   @override
   String get navSettings => 'सेटिंग्स';
@@ -30,10 +30,16 @@ class AppL10nHi extends AppL10n {
   String get jobsTitle => 'नौकरी सूची';
 
   @override
+  String get browseJobs => 'नौकरियां ब्राउज़ करें';
+
+  @override
   String get searchJobs => 'नौकरियां, कंपनियां खोजें...';
 
   @override
   String get filterBy => 'फ़िल्टर';
+
+  @override
+  String get clearAll => 'सब साफ़ करें';
 
   @override
   String get sortBy => 'क्रमबद्ध करें';
@@ -52,6 +58,9 @@ class AppL10nHi extends AppL10n {
 
   @override
   String get applied => 'आवेदन किया';
+
+  @override
+  String get applicationSubmitted => 'आवेदन जमा किया!';
 
   @override
   String get bookmark => 'बुकमार्क';
@@ -75,6 +84,9 @@ class AppL10nHi extends AppL10n {
   String get requirements => 'आवश्यकताएं';
 
   @override
+  String get interviewInfo => 'साक्षात्कार जानकारी';
+
+  @override
   String get positions => 'पद';
 
   @override
@@ -94,9 +106,6 @@ class AppL10nHi extends AppL10n {
 
   @override
   String get workingHours => 'काम के घंटे';
-
-  @override
-  String get interviewInfo => 'साक्षात्कार जानकारी';
 
   @override
   String get savedJobs => 'सहेजी गई नौकरियां';
@@ -141,6 +150,19 @@ class AppL10nHi extends AppL10n {
   String get applicationsSubtitle => 'अपने नौकरी आवेदनों को ट्रैक करें';
 
   @override
+  String get jobAlerts => 'नौकरी अलर्ट';
+
+  @override
+  String get jobAlertsSubtitle =>
+      'मिलती-जुलती नौकरियां पोस्ट होने पर सूचित हों';
+
+  @override
+  String get changePassword => 'पासवर्ड बदलें';
+
+  @override
+  String get changePasswordSubtitle => 'अपना खाता पासवर्ड अपडेट करें';
+
+  @override
   String get preferences => 'प्राथमिकताएं';
 
   @override
@@ -150,13 +172,13 @@ class AppL10nHi extends AppL10n {
   String get languageSubtitle => 'अपनी पसंदीदा भाषा चुनें';
 
   @override
-  String get notifications => 'सूचनाएं';
-
-  @override
-  String get notificationsSubtitle => 'पुश सूचना सेटिंग्स प्रबंधित करें';
-
-  @override
   String get support => 'सहायता';
+
+  @override
+  String get contactUs => 'हमसे संपर्क करें';
+
+  @override
+  String get contactUsSubtitle => 'मदद लें या हमें संदेश भेजें';
 
   @override
   String get rateApp => 'रेटिंग और फ़ीडबैक';
@@ -168,16 +190,28 @@ class AppL10nHi extends AppL10n {
   String get about => 'हमारे बारे में';
 
   @override
+  String get legal => 'कानूनी';
+
+  @override
   String get terms => 'नियम और शर्तें';
 
   @override
   String get privacy => 'गोपनीयता नीति';
 
   @override
+  String get session => 'सत्र';
+
+  @override
   String get signOut => 'साइन आउट';
 
   @override
   String get signOutConfirm => 'क्या आप अपने खाते से साइन आउट करना चाहते हैं?';
+
+  @override
+  String get deleteAccount => 'खाता हटाएं';
+
+  @override
+  String get deleteAccountSubtitle => 'अपना डेटा स्थायी रूप से हटाएं';
 
   @override
   String get cancel => 'रद्द करें';

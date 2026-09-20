@@ -109,29 +109,29 @@ abstract class AppL10n {
   /// **'Gulfwalkin'**
   String get appName;
 
+  /// No description provided for @navHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navHome;
+
   /// No description provided for @navJobs.
   ///
   /// In en, this message translates to:
   /// **'Jobs'**
   String get navJobs;
 
-  /// No description provided for @navSaved.
+  /// No description provided for @navApplied.
   ///
   /// In en, this message translates to:
-  /// **'Saved'**
-  String get navSaved;
+  /// **'Applied'**
+  String get navApplied;
 
-  /// No description provided for @navAlerts.
+  /// No description provided for @navProfile.
   ///
   /// In en, this message translates to:
-  /// **'Alerts'**
-  String get navAlerts;
-
-  /// No description provided for @navNotifications.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications'**
-  String get navNotifications;
+  /// **'Profile'**
+  String get navProfile;
 
   /// No description provided for @navSettings.
   ///
@@ -145,6 +145,12 @@ abstract class AppL10n {
   /// **'Job Listings'**
   String get jobsTitle;
 
+  /// No description provided for @browseJobs.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse Jobs'**
+  String get browseJobs;
+
   /// No description provided for @searchJobs.
   ///
   /// In en, this message translates to:
@@ -156,6 +162,12 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Filter'**
   String get filterBy;
+
+  /// No description provided for @clearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all'**
+  String get clearAll;
 
   /// No description provided for @sortBy.
   ///
@@ -192,6 +204,12 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Applied'**
   String get applied;
+
+  /// No description provided for @applicationSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Application submitted!'**
+  String get applicationSubmitted;
 
   /// No description provided for @bookmark.
   ///
@@ -235,6 +253,12 @@ abstract class AppL10n {
   /// **'Requirements'**
   String get requirements;
 
+  /// No description provided for @interviewInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Interview Info'**
+  String get interviewInfo;
+
   /// No description provided for @positions.
   ///
   /// In en, this message translates to:
@@ -276,12 +300,6 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Working Hours'**
   String get workingHours;
-
-  /// No description provided for @interviewInfo.
-  ///
-  /// In en, this message translates to:
-  /// **'Interview Information'**
-  String get interviewInfo;
 
   /// No description provided for @savedJobs.
   ///
@@ -367,6 +385,30 @@ abstract class AppL10n {
   /// **'Track your job applications'**
   String get applicationsSubtitle;
 
+  /// No description provided for @jobAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Job Alerts'**
+  String get jobAlerts;
+
+  /// No description provided for @jobAlertsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get notified when matching jobs are posted'**
+  String get jobAlertsSubtitle;
+
+  /// No description provided for @changePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get changePassword;
+
+  /// No description provided for @changePasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Update your account password'**
+  String get changePasswordSubtitle;
+
   /// No description provided for @preferences.
   ///
   /// In en, this message translates to:
@@ -385,23 +427,23 @@ abstract class AppL10n {
   /// **'Choose your preferred language'**
   String get languageSubtitle;
 
-  /// No description provided for @notifications.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications'**
-  String get notifications;
-
-  /// No description provided for @notificationsSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Manage push notification settings'**
-  String get notificationsSubtitle;
-
   /// No description provided for @support.
   ///
   /// In en, this message translates to:
   /// **'Support'**
   String get support;
+
+  /// No description provided for @contactUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Us'**
+  String get contactUs;
+
+  /// No description provided for @contactUsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get help or send us a message'**
+  String get contactUsSubtitle;
 
   /// No description provided for @rateApp.
   ///
@@ -421,6 +463,12 @@ abstract class AppL10n {
   /// **'About Us'**
   String get about;
 
+  /// No description provided for @legal.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal'**
+  String get legal;
+
   /// No description provided for @terms.
   ///
   /// In en, this message translates to:
@@ -433,6 +481,12 @@ abstract class AppL10n {
   /// **'Privacy Policy'**
   String get privacy;
 
+  /// No description provided for @session.
+  ///
+  /// In en, this message translates to:
+  /// **'Session'**
+  String get session;
+
   /// No description provided for @signOut.
   ///
   /// In en, this message translates to:
@@ -444,6 +498,18 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Sign out of your account?'**
   String get signOutConfirm;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccount;
+
+  /// No description provided for @deleteAccountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Permanently remove your data'**
+  String get deleteAccountSubtitle;
 
   /// No description provided for @cancel.
   ///
